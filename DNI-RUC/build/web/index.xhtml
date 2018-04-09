@@ -1,0 +1,248 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>CONSULTAR | DNI | RUC</title>
+        <style>
+            .docs {
+                margin: 3% 5%;
+                font-size: 1.2em;
+            }
+            .docs h3 {
+                font-size: 1.2em;
+                font-weight: bold;
+                margin: .5em 0;
+            }
+            .docs p {
+                margin: 0 0 1em;
+            }
+
+
+            body {
+                font: 62.5%/1.3 Helvetica, sans-serif;
+            }
+            .a11y-only {
+                position: absolute;
+                left: -999em;
+            }
+
+            .table-wrapper {
+                position: relative;
+                margin: 5em 5%;
+            }
+            .table-menu-wrapper {
+                position: absolute;
+                top: -3em;
+                right: 0;
+            }
+            .table-menu {
+                position: absolute;
+                background-color: #fff;
+                padding: 10px;
+                border: 1px solid #ccc;
+                font-size: 1.2em;
+                width: 12em;
+                right: 0;
+                left: auto;
+            }
+            .table-menu-hidden {
+                left: -999em;
+                right: auto;
+            }
+            .table-menu-btn {
+                text-decoration: none;
+                color: #333;
+                font-size: 1.2em;
+                background: #eee url(../_img/icon-menu.png) no-repeat 5px center;
+                padding: .3em 10px .3em 20px;
+                border: 1px solid #ccc;
+            }
+            .table-menu li {
+                padding: .3em 0;
+            }
+
+            table {
+                width: 100%;
+                font-size: 1.2em;
+            }
+            thead th {
+                white-space: nowrap;
+                border-bottom: 1px solid #ccc;
+                color: #888;
+            }
+            th, td {
+                padding: .5em 1em;
+                background-color: #fff;
+                text-align: right;
+            }
+            th:first-child, 
+            td:first-child {
+                text-align: left;
+            }
+            tbody th, td {
+                border-bottom: 1px solid #e6e6e6;
+            }
+            .co-name {
+                display: block;
+                font-size: .9em;
+                opacity: .4;
+            }
+
+            .enhanced th,
+            .enhanced td {
+                display: none;
+            }
+
+            .legacy-ie .enhanced th.essential, 
+            .legacy-ie .enhanced td.essential {
+                display: inline;
+            }
+            .enhanced th.essential, 
+            .enhanced td.essential {
+                display: table-cell;
+            }
+
+
+
+            @media screen and (min-width: 500px) {
+                .legacy-ie .enhanced th.optional, 
+                .legacy-ie .enhanced td.optional {
+                    display: inline;
+                }
+                .enhanced th.optional, 
+                .enhanced td.optional {
+                    display: table-cell;
+                }
+            }
+
+            @media screen and (min-width: 800px) {
+                .legacy-ie .enhanced th, 
+                .legacy-ie .enhanced td {
+                    display: inline;
+                }
+                .enhanced th, 
+                .enhanced td {
+                    display: table-cell;
+                }
+            }
+        </style>
+
+        <script>
+            $(function () {
+                $("td[colspan=4]").find("div").hide();
+                $("tr").click(function (event) {
+                    var $target = $(event.target);
+                    $target.closest("tr").next().find("div").slideToggle();
+                });
+            });
+        </script>
+    </h:head>
+    <h:body>
+        <h:form >
+            <p:inputText value="#{controller.lm.dni}" maxlength="8" >
+                <p:keyFilter regEx="/[\d\-]/"/>
+            </p:inputText>
+            <h:commandButton value="Consultar DNI " actionListener="#{controller.consultarDni()}" />
+
+            <table >
+                <thead>
+                    <tr>
+                        <th>Nombres</th>
+                        <th>Apellido_Paterno</th>
+                        <th>Apellido_Materno</th>
+                        <th>Caracter_verificacion</th>
+                        <th>Caracter_verificacion_anterior</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><p:outputLabel value="#{controller.lm.nombres}"/></td>
+                        <td><p:outputLabel value="#{controller.lm.apellidosPaterno}"/></td>
+                        <td><p:outputLabel value="#{controller.lm.apellidoMaterno}"/></td>
+                        <td><p:outputLabel value="#{controller.lm.caracterVer}"/></td>
+                        <td><p:outputLabel value="#{controller.lm.caracterVerAnte}"/></td>
+                    </tr>
+                </tbody>
+            </table>
+        
+
+        
+            <p:inputText value="#{controller.lm.ruc}" maxlength="11">
+                <p:keyFilter regEx="/[\d\-]/"/>
+            </p:inputText>
+            <h:commandButton value="Consultar RUC " actionListener="#{controller.consultarRuc()}" />
+
+            <table >
+                <thead>
+                    <tr>
+                        <th>Razon Social</th>
+                        <th>Direccion</th>
+                        <th>Estado</th>
+                        <th>Ultima Actualizacion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><p:outputLabel value="#{controller.lm.nombre_o_razon_social}"/></td>
+                        <td><p:outputLabel value="#{controller.lm.direccion_completa}"/></td>
+                        <td><p:outputLabel value="#{controller.lm.estado_del_contribuyente}"/></td>
+                        <td><p:outputLabel value="#{controller.lm.ultima_actualizacion}"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th>Departamento</th>
+                                        <th>Provincia</th>
+                                        <th>Distrito</th>
+                                        <th>Condicion Domicilio</th>
+                                        <th>Ubigeo</th>
+                                    </tr>
+                                    <tr>
+                                        <td><p:outputLabel value="#{controller.lm.departamento}"/></td>
+                                        <td><p:outputLabel value="#{controller.lm.provincia}"/></td>
+                                        <td><p:outputLabel value="#{controller.lm.distrito}"/></td>
+                                        <td><p:outputLabel value="#{controller.lm.condicion_de_domicilio}"/></td>
+                                        <td><p:outputLabel value="#{controller.lm.ubigeo}"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th>Tipo Via</th>
+                                        <th>Nombre Via</th>
+                                        <th>Codigo Zona</th>
+                                        <th>Tipo Zona</th>
+                                        <th>Numero</th>
+                                        <th>Interior</th>
+                                        <th>Lote</th>
+                                        <th>Manzana</th>
+                                        <th>Km</th>
+                                        <th>Departamento</th>
+                                    </tr>
+                                    <tr>
+                                        <td><p:outputLabel value="#{controller.lm.tipo_de_via}"/></td>
+                                        <td><p:outputLabel value="#{controller.lm.nombre_de_via}"/></td>
+                                        <td><p:outputLabel value="#{controller.lm.codigo_de_zona}"/></td>
+                                        <td><p:outputLabel value="#{controller.lm.tipo_de_zona}"/></td>
+                                        <td><p:outputLabel value="#{controller.lm.numero}"/></td>
+                                        <td><p:outputLabel value="#{controller.lm.interior}"/></td>
+                                        <td><p:outputLabel value="#{controller.lm.lote}"/></td>
+                                        <td><p:outputLabel value="#{controller.lm.manzana}"/></td>
+                                        <td><p:outputLabel value="#{controller.lm.kilometro}"/></td>
+                                        <td><p:outputLabel value="#{controller.lm.dpto}"/></td>
+                                    </tr>
+                                </table>
+                            </div>  
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </h:form>
+    </h:body>
+</html>
+
